@@ -10,6 +10,9 @@ async function AuthController(req: Request, res: Response): Promise<void> {
       validatedData.email,
       validatedData.password,
     );
+    console.log("Generated token:", token);
+    console.log("Authenticated user:", validatedData.email);
+
     res.status(200).json({ token, user });
   } catch (error) {
     if (error instanceof z.ZodError) {

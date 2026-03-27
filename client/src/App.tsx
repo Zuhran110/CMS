@@ -1,12 +1,15 @@
-import Navbar from "./components/layout/navbar.component";
-import Login from "./components/login/Login.component";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/Login.page";
+import DashboardPage from "./pages/Dashboard.page";
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <Navbar title="Dashboard" />
-      <Login />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

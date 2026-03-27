@@ -1,4 +1,7 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 type LoginFormData = {
   email: string;
@@ -6,15 +9,37 @@ type LoginFormData = {
 };
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
 
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  const postData = async (data: LoginFormData) => {
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_Backend_URL + "/api/auth/login",
+        data,
+      );
+      console.log("Login response", res.data);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      navigate("/dashboard");
+    } catch (err: any) {
+      const message =
+        err.response?.data?.message || "Invalid email or password";
+      setLoginError(message);
+    }
+  };
+
   const onSubmit: SubmitHandler<LoginFormData> = (data) => {
     console.log("Login data", data);
     // TODO: Implement login logic here
+    postData(data);
   };
 
   return (
@@ -29,6 +54,11 @@ const Login = () => {
             Sign in to continue to your dashboard.
           </p>
         </div>
+        {loginError && (
+          <div className="mb-4 rounded-md bg-red-50 p-3 border border-red-200">
+            <p className="text-sm text-red-600 font-medium">{loginError}</p>
+          </div>
+        )}
 
         <div className="space-y-4">
           <div className="space-y-1">

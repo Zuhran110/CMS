@@ -18,13 +18,17 @@ if (mongoDnsServers) {
   );
 }
 
-// Routes
-app.use("/api/auth", authRouter);
-
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.REACT_APP_URL || "http://localhost:5173",
+    optionsSuccessStatus: 200,
+  }),
+);
 app.use(morgan("dev"));
 app.use(express.json());
+// Routes
+app.use("/api/auth", authRouter);
 
 const startServer = async (): Promise<void> => {
   try {
