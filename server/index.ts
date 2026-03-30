@@ -4,6 +4,8 @@ import morgan from "morgan";
 import dns from "node:dns";
 import connectDB from "./config/db.config";
 import authRouter from "./router/Auth.router";
+import path from "node:path";
+import contentRouter from "./router/Content.router";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -25,10 +27,13 @@ app.use(
     optionsSuccessStatus: 200,
   }),
 );
+
 app.use(morgan("dev"));
 app.use(express.json());
 // Routes
 app.use("/api/auth", authRouter);
+app.use("/uploads", express.static(path.join(import.meta.dirname, "uploads")));
+app.use("/api/content", contentRouter);
 
 const startServer = async (): Promise<void> => {
   try {

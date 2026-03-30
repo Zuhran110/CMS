@@ -1,11 +1,31 @@
+import { NavLink } from "react-router-dom";
+
 type NavbarProps = {
   title: string;
 };
 
 export const Navbar = ({ title = "Dashboard" }: NavbarProps) => {
+  const getNavClass = ({ isActive }: { isActive: boolean }) =>
+    `rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+      isActive
+        ? "bg-slate-900 text-white"
+        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+    }`;
+
   return (
-    <nav className="p-4 border-b border-slate-200 bg-white">
-      <h1 className="text-lg font-semibold">{title}</h1>
+    <nav className="border-b border-slate-200 bg-white px-4 py-4">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
+        <h1 className="text-lg font-semibold">{title}</h1>
+
+        <div className="flex items-center gap-2">
+          <NavLink to="/dashboard" className={getNavClass}>
+            Dashboard
+          </NavLink>
+          <NavLink to="/buy-service" className={getNavClass}>
+            Buy Service
+          </NavLink>
+        </div>
+      </div>
     </nav>
   );
 };
