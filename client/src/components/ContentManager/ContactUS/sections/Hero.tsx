@@ -1,6 +1,6 @@
 import type { AboutUsSectionProps } from "./ConatctUsProps";
 
-const Hero = ({ register }: AboutUsSectionProps) => {
+const Hero = ({ register, savedImages }: AboutUsSectionProps) => {
   return (
     <section className="space-y-4 rounded-lg border border-slate-200 p-4">
       <h2 className="text-base font-semibold text-slate-900">Hero Section</h2>
@@ -50,6 +50,9 @@ const Hero = ({ register }: AboutUsSectionProps) => {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
             {...register("img")}
           />
+          {savedImages?.img && (
+            <img src={savedImages.img} alt="Current hero" className="mt-2 h-20 rounded object-cover" />
+          )}
         </div>
       </div>
     </section>

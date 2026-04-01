@@ -1,7 +1,7 @@
 import { useFieldArray } from "react-hook-form";
 import type { AboutUsSectionProps } from "./AboutUsProp";
 
-const OurValue = ({ register, errors, control }: AboutUsSectionProps) => {
+const OurValue = ({ register, errors, control, savedImages }: AboutUsSectionProps) => {
   const { fields, append } = useFieldArray({
     control,
     name: "OurValue",
@@ -37,6 +37,9 @@ const OurValue = ({ register, errors, control }: AboutUsSectionProps) => {
                 className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
                 {...register(`OurValue.${index}.imgValue`)}
               />
+              {savedImages?.[`imgValue_${index}`] && (
+                <img src={savedImages[`imgValue_${index}`]} alt="Current value image" className="mt-2 h-20 rounded object-cover" />
+              )}
             </div>
 
             <div>

@@ -6,6 +6,7 @@ const ClientsTestimonialSection = ({
   register,
   errors,
   control,
+  savedImages,
 }: HomeSectionProps) => {
   const testimonialCards = useWatch({
     control,
@@ -73,6 +74,9 @@ const ClientsTestimonialSection = ({
                       `clientsTestimonial.testimonialCards.${index}.testimonialBgImg`,
                     )}
                   />
+                  {savedImages?.[`testimonialBgImg_${index}`] && (
+                    <img src={savedImages[`testimonialBgImg_${index}`]} alt="Current background" className="mt-2 h-20 rounded object-cover" />
+                  )}
                   {(
                     errors.clientsTestimonial?.testimonialCards?.[index]
                       ?.testimonialBgImg as { message?: string }
@@ -104,6 +108,9 @@ const ClientsTestimonialSection = ({
                       `clientsTestimonial.testimonialCards.${index}.testimonialPersonImg`,
                     )}
                   />
+                  {savedImages?.[`testimonialPersonImg_${index}`] && (
+                    <img src={savedImages[`testimonialPersonImg_${index}`]} alt="Current person image" className="mt-2 h-20 rounded object-cover" />
+                  )}
                   {(
                     errors.clientsTestimonial?.testimonialCards?.[index]
                       ?.testimonialPersonImg as { message?: string }

@@ -6,6 +6,7 @@ const WhyOutsourceSection = ({
   register,
   errors,
   control,
+  savedImages,
 }: HomeSectionProps) => {
   const whyOutsourceCardSections = useWatch({
     control,
@@ -77,6 +78,9 @@ const WhyOutsourceSection = ({
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
             {...register("imgWhyOutsourcing")}
           />
+          {savedImages?.imgWhyOutsoutcing && (
+            <img src={savedImages.imgWhyOutsoutcing} alt="Current main image" className="mt-2 h-20 rounded object-cover" />
+          )}
         </div>
 
         <div>
@@ -93,6 +97,9 @@ const WhyOutsourceSection = ({
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
             {...register("imgTwoWhyOutsourcing")}
           />
+          {savedImages?.imgtwoWhyOutsoutcing && (
+            <img src={savedImages.imgtwoWhyOutsoutcing} alt="Current second image" className="mt-2 h-20 rounded object-cover" />
+          )}
         </div>
       </div>
 
@@ -110,6 +117,9 @@ const WhyOutsourceSection = ({
           className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
           {...register("whyOutSourceAccounting")}
         />
+        {savedImages?.whyOutSourceAccounting && (
+          <img src={savedImages.whyOutSourceAccounting} alt="Current accounting image" className="mt-2 h-20 rounded object-cover" />
+        )}
       </div>
 
       <div className="space-y-4 rounded-md border border-slate-300 p-4">
@@ -145,6 +155,9 @@ const WhyOutsourceSection = ({
                       `whyOutsourceCardSections.${index}.imgPointerWhyOutsourcing`,
                     )}
                   />
+                  {savedImages?.[`whyCardImage_${index}`] && (
+                    <img src={savedImages[`whyCardImage_${index}`]} alt="Current pointer image" className="mt-2 h-20 rounded object-cover" />
+                  )}
                 </div>
 
                 <div>

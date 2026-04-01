@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import type { FormValues } from "./Faq.types";
+import type { SavedImages } from "./sections/FaqProps";
 import { useRef, useEffect, useState } from "react";
 import HeroSection from "./sections/HeroSection";
 import GeneralQuiz from "./sections/GeneralQuiz";
@@ -20,6 +21,7 @@ const Faq = () => {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [savedImages, setSavedImages] = useState<SavedImages>({});
   const saveMessageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ const Faq = () => {
         const res = await axios.get(`${BACKEND}/api/content/faq`);
         const c = res.data.content;
         if (!c) return;
+        setSavedImages({ bookACallImg: c.bookACall?.img });
         reset({
           heading: c.heading ?? "",
           description: c.description ?? "",
@@ -131,7 +134,7 @@ const Faq = () => {
         </div>
         <HeroSection register={register} errors={errors} control={control} />
         <GeneralQuiz register={register} errors={errors} control={control} />
-        <BookACall register={register} errors={errors} control={control} />
+        <BookACall register={register} errors={errors} control={control} savedImages={savedImages} />
       </form>
     </div>
   );

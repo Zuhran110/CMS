@@ -1,6 +1,6 @@
 import type { HomeSectionProps } from "./section-props.types";
 
-const HowWeWorkSection = ({ register, errors }: HomeSectionProps) => {
+const HowWeWorkSection = ({ register, errors, savedImages }: HomeSectionProps) => {
   return (
     <section className="space-y-4 rounded-lg border border-slate-200 p-4">
       <h2 className="text-base font-semibold text-slate-900">How We Work</h2>
@@ -82,6 +82,9 @@ const HowWeWorkSection = ({ register, errors }: HomeSectionProps) => {
           className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
           {...register("howWeWork.oneIcon")}
         />
+        {savedImages?.howWeWorkIcon_0 && (
+          <img src={savedImages.howWeWorkIcon_0} alt="Current step 1 icon" className="mt-2 h-20 rounded object-cover" />
+        )}
         {errors.howWeWork?.oneIcon && (
           <p className="mt-1 text-sm text-red-600">
             {errors.howWeWork.oneIcon.message as string}
@@ -165,6 +168,9 @@ const HowWeWorkSection = ({ register, errors }: HomeSectionProps) => {
           className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
           {...register("howWeWork.twoIcon")}
         />
+        {savedImages?.howWeWorkIcon_1 && (
+          <img src={savedImages.howWeWorkIcon_1} alt="Current step 2 icon" className="mt-2 h-20 rounded object-cover" />
+        )}
         {errors.howWeWork?.twoIcon && (
           <p className="mt-1 text-sm text-red-600">
             {errors.howWeWork.twoIcon.message as string}
@@ -248,6 +254,9 @@ const HowWeWorkSection = ({ register, errors }: HomeSectionProps) => {
           className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
           {...register("howWeWork.threeIcon")}
         />
+        {savedImages?.howWeWorkIcon_2 && (
+          <img src={savedImages.howWeWorkIcon_2} alt="Current step 3 icon" className="mt-2 h-20 rounded object-cover" />
+        )}
         {errors.howWeWork?.threeIcon && (
           <p className="mt-1 text-sm text-red-600">
             {errors.howWeWork.threeIcon.message as string}
@@ -290,6 +299,9 @@ const HowWeWorkSection = ({ register, errors }: HomeSectionProps) => {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
             {...register("howWeWork.lineOne")}
           />
+          {savedImages?.lineOne && (
+            <img src={savedImages.lineOne} alt="Current line 1" className="mt-2 h-20 rounded object-cover" />
+          )}
           {errors.howWeWork?.lineOne && (
             <p className="mt-1 text-sm text-red-600">
               {errors.howWeWork.lineOne.message as string}
@@ -311,6 +323,9 @@ const HowWeWorkSection = ({ register, errors }: HomeSectionProps) => {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
             {...register("howWeWork.lineTwo")}
           />
+          {savedImages?.lineTwo && (
+            <img src={savedImages.lineTwo} alt="Current line 2" className="mt-2 h-20 rounded object-cover" />
+          )}
           {errors.howWeWork?.lineTwo && (
             <p className="mt-1 text-sm text-red-600">
               {errors.howWeWork.lineTwo.message as string}

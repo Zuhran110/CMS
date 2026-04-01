@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import type { FormValues } from "./Conact-Form.types";
+import type { SavedImages } from "./sections/ConatctUsProps";
 import { useRef, useEffect, useState } from "react";
 import Hero from "./sections/Hero";
 import GetInTouch from "./sections/GetInTouch";
@@ -19,6 +20,7 @@ const ContactUS = () => {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [savedImages, setSavedImages] = useState<SavedImages>({});
   const saveMessageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -27,6 +29,18 @@ const ContactUS = () => {
         const res = await axios.get(`${BACKEND}/api/content/contact-us`);
         const c = res.data.content;
         if (!c) return;
+
+        setSavedImages({
+          img: c.img,
+          ...(c.getInTouch ?? []).reduce(
+            (acc: SavedImages, card: { img?: string }, i: number) => {
+              acc[`getInTouchImg_${i}`] = card.img;
+              return acc;
+            },
+            {},
+          ),
+        });
+
         reset({
           heading: c.heading ?? "",
           description: c.description ?? "",
@@ -129,8 +143,8 @@ const ContactUS = () => {
             </span>
           )}
         </div>
-        <Hero register={register} errors={errors} control={control} />
-        <GetInTouch register={register} errors={errors} control={control} />
+        <Hero register={register} errors={errors} control={control} savedImages={savedImages} />
+        <GetInTouch register={register} errors={errors} control={control} savedImages={savedImages} />
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import { cardDropdowns } from "../home-form.types";
 import { useWatch } from "react-hook-form";
 import type { HomeSectionProps } from "./section-props.types";
 
-const HeroSection = ({ register, errors, control }: HomeSectionProps) => {
+const HeroSection = ({ register, errors, control, savedImages }: HomeSectionProps) => {
   const heroCardSections = useWatch({
     control,
     name: "heroCardSections",
@@ -29,6 +29,9 @@ const HeroSection = ({ register, errors, control }: HomeSectionProps) => {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
             {...register("bgImage")}
           />
+          {savedImages?.bgImage && (
+            <img src={savedImages.bgImage} alt="Current background" className="mt-2 h-20 rounded object-cover" />
+          )}
         </div>
 
         <div>
@@ -103,6 +106,9 @@ const HeroSection = ({ register, errors, control }: HomeSectionProps) => {
           className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
           {...register("ukFlag")}
         />
+        {savedImages?.ukFlag && (
+          <img src={savedImages.ukFlag} alt="Current UK flag" className="mt-2 h-20 rounded object-cover" />
+        )}
       </div>
 
       <div>
@@ -196,6 +202,9 @@ const HeroSection = ({ register, errors, control }: HomeSectionProps) => {
                     className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
                     {...register(`heroCardSections.${index}.image`)}
                   />
+                  {savedImages?.[`heroCardImg_${index}`] && (
+                    <img src={savedImages[`heroCardImg_${index}`]} alt="Current card image" className="mt-2 h-20 rounded object-cover" />
+                  )}
                 </div>
 
                 <div>

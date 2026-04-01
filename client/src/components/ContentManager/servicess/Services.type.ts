@@ -4,6 +4,7 @@ export type FormValues = {
   titleHighlight: string;
   subtitle: string;
   description: string;
+  descriptiontwo: string;
   buttonText: string;
   img: FileList;
   bgimg: FileList;

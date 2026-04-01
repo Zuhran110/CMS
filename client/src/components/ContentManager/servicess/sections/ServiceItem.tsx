@@ -1,11 +1,23 @@
+import { useWatch } from "react-hook-form";
 import type { ServiceSectionProps } from "./ServicesProps";
 import WhatYouGet from "./WhatYouGet";
 import ServiceProcess from "./ServiceProcess";
 import WhyChooseUs from "./WhyChooseUs";
 import Statics from "./Statics";
 
+// Show a saved Cloudinary URL as a small preview (only when value is a string, not a FileList)
+function ImgPreview({ value }: { value: unknown }) {
+  if (typeof value !== "string" || !value.startsWith("http")) return null;
+  return <img src={value} alt="Current image" className="mt-2 h-20 rounded object-cover" />;
+}
+
 const ServiceItem = ({ index, register, errors, control }: ServiceSectionProps) => {
   const p = `services.${index}` as const;
+
+  const imgVal = useWatch({ control, name: `${p}.img` });
+  const bgimgVal = useWatch({ control, name: `${p}.bgimg` });
+  const whatDataImgVal = useWatch({ control, name: `${p}.WhatData.img` });
+  const whoDataImgVal = useWatch({ control, name: `${p}.WhoData.img` });
 
   return (
     <div className="space-y-4">
@@ -36,10 +48,12 @@ const ServiceItem = ({ index, register, errors, control }: ServiceSectionProps) 
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700">Image</label>
             <input type="file" accept="image/*" className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" {...register(`${p}.img`)} />
+            <ImgPreview value={imgVal} />
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700">Background Image</label>
             <input type="file" accept="image/*" className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" {...register(`${p}.bgimg`)} />
+            <ImgPreview value={bgimgVal} />
           </div>
           <div className="md:col-span-2">
             <label className="mb-1 block text-sm font-medium text-slate-700">Description</label>
@@ -84,6 +98,7 @@ const ServiceItem = ({ index, register, errors, control }: ServiceSectionProps) 
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700">Image</label>
             <input type="file" accept="image/*" className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" {...register(`${p}.WhatData.img`)} />
+            <ImgPreview value={whatDataImgVal} />
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700">Description One</label>
@@ -107,6 +122,7 @@ const ServiceItem = ({ index, register, errors, control }: ServiceSectionProps) 
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700">Image</label>
             <input type="file" accept="image/*" className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" {...register(`${p}.WhoData.img`)} />
+            <ImgPreview value={whoDataImgVal} />
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700">Description One</label>

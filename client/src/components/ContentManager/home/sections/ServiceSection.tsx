@@ -2,7 +2,7 @@ import { serviceCardDropdowns } from "../home-form.types";
 import { useWatch } from "react-hook-form";
 import type { HomeSectionProps } from "./section-props.types";
 
-const ServiceSection = ({ register, errors, control }: HomeSectionProps) => {
+const ServiceSection = ({ register, errors, control, savedImages }: HomeSectionProps) => {
   const serviceCards = useWatch({
     control,
     name: "serviceCards",
@@ -84,6 +84,9 @@ const ServiceSection = ({ register, errors, control }: HomeSectionProps) => {
                     className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
                     {...register(`serviceCards.${index}.imgServiceCard`)}
                   />
+                  {savedImages?.[`imgServiceCard_${index}`] && (
+                    <img src={savedImages[`imgServiceCard_${index}`]} alt="Current card image" className="mt-2 h-20 rounded object-cover" />
+                  )}
                   {(
                     errors.serviceCards?.[index]?.imgServiceCard as {
                       message?: string;

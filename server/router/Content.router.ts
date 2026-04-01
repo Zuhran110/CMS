@@ -63,18 +63,8 @@ const homeImageFields = [
 
 // Home content routes
 router.get("/home", getHomeContentController);
-router.post(
-  "/home",
-  AuthMiddleware,
-  upload.fields(homeImageFields),
-  saveHomeContentController,
-);
-router.put(
-  "/home",
-  AuthMiddleware,
-  upload.fields(homeImageFields),
-  saveHomeContentController,
-);
+router.post("/home", AuthMiddleware, upload.any(), saveHomeContentController);
+router.put("/home", AuthMiddleware, upload.any(), saveHomeContentController);
 
 // Buy service routes
 router.get("/buy-service", getBuyServiceContentController);

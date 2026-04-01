@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { SavedImages } from "./sections/section-props.types";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import {
@@ -80,6 +81,7 @@ type BackendContent = {
 const Home = () => {
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [savedImages, setSavedImages] = useState<SavedImages>({});
   // Holds the raw backend content so we can preserve existing image URLs on save
   const existingContent = useRef<BackendContent>({});
   const saveMessageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -141,6 +143,39 @@ const Home = () => {
 
       // Store the raw backend content so we can fall back to existing image URLs on save
       existingContent.current = c;
+
+      // Build a flat map of fieldname → URL so sections can show previews
+      setSavedImages({
+        bgImage: c.bgImage,
+        ukFlag: c.ukFlag,
+        heroCardImg_0: c.heroCards?.[0]?.heroCardImg,
+        heroCardImg_1: c.heroCards?.[1]?.heroCardImg,
+        heroCardImg_2: c.heroCards?.[2]?.heroCardImg,
+        imgWhyOutsoutcing: c.imgWhyOutsoutcing,
+        imgtwoWhyOutsoutcing: c.imgtwoWhyOutsoutcing,
+        whyOutSourceAccounting: c.whyOutSourceAccounting,
+        whyCardImage_0: c.whyOutsoutcingCards?.[0]?.whyCardImage,
+        whyCardImage_1: c.whyOutsoutcingCards?.[1]?.whyCardImage,
+        whyCardImage_2: c.whyOutsoutcingCards?.[2]?.whyCardImage,
+        imgServiceCard_0: c.serviceCards?.[0]?.imgServiceCard,
+        imgServiceCard_1: c.serviceCards?.[1]?.imgServiceCard,
+        imgServiceCard_2: c.serviceCards?.[2]?.imgServiceCard,
+        imgServiceCard_3: c.serviceCards?.[3]?.imgServiceCard,
+        imgServiceCard_4: c.serviceCards?.[4]?.imgServiceCard,
+        imgServiceCard_5: c.serviceCards?.[5]?.imgServiceCard,
+        howWeWorkIcon_0: c.howWeWorkSteps?.[0]?.howWeWorkIcon,
+        howWeWorkIcon_1: c.howWeWorkSteps?.[1]?.howWeWorkIcon,
+        howWeWorkIcon_2: c.howWeWorkSteps?.[2]?.howWeWorkIcon,
+        lineOne: c.lineOne,
+        lineTwo: c.lineTwo,
+        testimonialBgImg_0: c.testimonialsCard?.[0]?.testimonialBgImg,
+        testimonialBgImg_1: c.testimonialsCard?.[1]?.testimonialBgImg,
+        testimonialBgImg_2: c.testimonialsCard?.[2]?.testimonialBgImg,
+        testimonialPersonImg_0: c.testimonialsCard?.[0]?.testimonialPersonImg,
+        testimonialPersonImg_1: c.testimonialsCard?.[1]?.testimonialPersonImg,
+        testimonialPersonImg_2: c.testimonialsCard?.[2]?.testimonialPersonImg,
+        joinUsBgImage: c.joinUsBgImage,
+      });
 
       reset({
         title: c.title ?? "",
@@ -436,25 +471,13 @@ const Home = () => {
           )}
         </div>
 
-        <HeroSection register={register} errors={errors} control={control} />
-        <WhyOutsourceSection
-          register={register}
-          errors={errors}
-          control={control}
-        />
-        <ServiceSection register={register} errors={errors} control={control} />
-        <HowWeWorkSection
-          register={register}
-          errors={errors}
-          control={control}
-        />
-        <ClientsTestimonialSection
-          register={register}
-          errors={errors}
-          control={control}
-        />
+        <HeroSection register={register} errors={errors} control={control} savedImages={savedImages} />
+        <WhyOutsourceSection register={register} errors={errors} control={control} savedImages={savedImages} />
+        <ServiceSection register={register} errors={errors} control={control} savedImages={savedImages} />
+        <HowWeWorkSection register={register} errors={errors} control={control} savedImages={savedImages} />
+        <ClientsTestimonialSection register={register} errors={errors} control={control} savedImages={savedImages} />
         <TopbarSection register={register} errors={errors} control={control} />
-        <JoinUsSection register={register} errors={errors} control={control} />
+        <JoinUsSection register={register} errors={errors} control={control} savedImages={savedImages} />
       </form>
     </div>
   );

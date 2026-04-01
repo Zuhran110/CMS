@@ -1,6 +1,6 @@
 import type { HomeSectionProps } from "./section-props.types";
 
-const JoinUsSection = ({ register, errors }: HomeSectionProps) => {
+const JoinUsSection = ({ register, errors, savedImages }: HomeSectionProps) => {
   return (
     <section className="space-y-4 rounded-lg border border-slate-200 p-4">
       <h2 className="text-base font-semibold text-slate-900">joinUs</h2>
@@ -40,6 +40,9 @@ const JoinUsSection = ({ register, errors }: HomeSectionProps) => {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
             {...register("joinUs.bgimg")}
           />
+          {savedImages?.joinUsBgImage && (
+            <img src={savedImages.joinUsBgImage} alt="Current background" className="mt-2 h-20 rounded object-cover" />
+          )}
           {errors.joinUs?.bgimg && (
             <p className="mt-1 text-sm text-red-600">
               {errors.joinUs.bgimg.message as string}

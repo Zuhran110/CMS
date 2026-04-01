@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import AboutUsSection from "./sections/AboutUsSection";
 import type { FormValues } from "./about-Form.types";
+import type { SavedImages } from "./sections/AboutUsProp";
 import { useRef } from "react";
 
 import { useEffect, useState } from "react";
@@ -22,6 +23,7 @@ const AboutUS = () => {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [savedImages, setSavedImages] = useState<SavedImages>({});
   const saveMessageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -30,6 +32,26 @@ const AboutUS = () => {
         const res = await axios.get(`${BACKEND}/api/content/about-us`);
         const c = res.data.content;
         if (!c) return;
+
+        setSavedImages({
+          imgHero: c.img,
+          imgOurStory: c.OurStory?.imgOurStory,
+          ...(c.OurStory?.missionStatmentCards ?? []).reduce(
+            (acc: SavedImages, card: { imgStatment?: string }, i: number) => {
+              acc[`imgStatment_${i}`] = card.imgStatment;
+              return acc;
+            },
+            {},
+          ),
+          ...(c.OurValue ?? []).reduce(
+            (acc: SavedImages, card: { imgValue?: string }, i: number) => {
+              acc[`imgValue_${i}`] = card.imgValue;
+              return acc;
+            },
+            {},
+          ),
+        });
+
         reset({
           heading: c.heading ?? "",
           subHeading: c.subHeading ?? "",
@@ -176,9 +198,9 @@ const AboutUS = () => {
             </span>
           )}
         </div>
-        <AboutUsSection register={register} errors={errors} control={control} />
-        <OurStory register={register} errors={errors} control={control} />
-        <OurValue register={register} errors={errors} control={control} />
+        <AboutUsSection register={register} errors={errors} control={control} savedImages={savedImages} />
+        <OurStory register={register} errors={errors} control={control} savedImages={savedImages} />
+        <OurValue register={register} errors={errors} control={control} savedImages={savedImages} />
       </form>
     </div>
   );

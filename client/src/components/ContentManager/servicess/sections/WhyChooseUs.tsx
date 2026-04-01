@@ -1,11 +1,18 @@
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useWatch } from "react-hook-form";
 import type { ServiceSectionProps } from "./ServicesProps";
+
+function ImgPreview({ value }: { value: unknown }) {
+  if (typeof value !== "string" || !value.startsWith("http")) return null;
+  return <img src={value} alt="Current image" className="mt-2 h-20 rounded object-cover" />;
+}
 
 const WhyChooseUs = ({ index, register, control }: ServiceSectionProps) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: `services.${index}.WhyChooseUs.card`,
   });
+  const sectionImgVal = useWatch({ control, name: `services.${index}.WhyChooseUs.img` });
+  const cardValues = useWatch({ control, name: `services.${index}.WhyChooseUs.card` });
 
   return (
     <section className="space-y-4 rounded-lg border border-slate-200 p-4">
@@ -28,6 +35,7 @@ const WhyChooseUs = ({ index, register, control }: ServiceSectionProps) => {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
             {...register(`services.${index}.WhyChooseUs.img`)}
           />
+          <ImgPreview value={sectionImgVal} />
         </div>
       </div>
 
@@ -55,6 +63,7 @@ const WhyChooseUs = ({ index, register, control }: ServiceSectionProps) => {
                   className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
                   {...register(`services.${index}.WhyChooseUs.card.${cardIndex}.img`)}
                 />
+                <ImgPreview value={cardValues?.[cardIndex]?.img} />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">Title</label>

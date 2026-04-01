@@ -28,6 +28,11 @@ import { contactUsSchema } from "../models/ContactUs.model";
 import { faqSchema } from "../models/Faq.model";
 import { serviceSchemaZod } from "../models/Service.model";
 import { z } from "zod";
+import {
+  buildUrlMap,
+  collectCloudinaryUrls,
+  deleteCloudinaryImages,
+} from "../utils/cloudinary.utils";
 
 // Helper: safely parse a JSON string from req.body (returns empty array on failure)
 function parseJsonField<T>(value: unknown): T[] {
@@ -59,16 +64,14 @@ export async function saveHomeContentController(
   res: Response,
 ): Promise<void> {
   try {
-    // req.files is typed as a union type — we cast it to the shape we need
-    const files = req.files as
-      | Record<string, Express.Multer.File[]>
-      | undefined;
-
-    // Helper: given a field name, return the URL if a new file was uploaded
-    const fileUrl = (fieldName: string): string | undefined => {
-      const file = files?.[fieldName]?.[0];
-      return file ? `/uploads/${file.filename}` : undefined;
-    };
+    // upload.any() gives a flat array; upload.fields() gives a record — handle both
+    const rawFiles = req.files;
+    const filesArray: Express.Multer.File[] = Array.isArray(rawFiles)
+      ? rawFiles
+      : Object.values((rawFiles as Record<string, Express.Multer.File[]>) ?? {}).flat();
+    const urlMap = await buildUrlMap(filesArray);
+    const fileUrl = (fieldName: string): string | undefined =>
+      urlMap.get(fieldName);
 
     // Parse array fields (they arrive as JSON strings from FormData)
     const heroCardsRaw = parseJsonField<{
@@ -177,13 +180,18 @@ export async function saveHomeContentController(
       testimonialsCard,
     };
 
+    const oldDoc = await getHomeContent();
+    const oldUrls = collectCloudinaryUrls(oldDoc);
     const content = await saveHomeContent(data);
+    const newUrls = new Set(collectCloudinaryUrls(content));
+    await deleteCloudinaryImages(oldUrls.filter((u) => !newUrls.has(u)));
     res.status(200).json({ content });
   } catch (error) {
+    console.error("[saveHomeContent]", error);
     if (error instanceof z.ZodError) {
       res.status(400).json({ error: error.issues });
     } else if (error instanceof Error) {
-      res.status(400).json({ error: error.message });
+      res.status(500).json({ error: error.message });
     } else {
       res.status(500).json({ error: "Internal Server Error" });
     }
@@ -208,14 +216,12 @@ export async function saveAboutUsContentController(
   res: Response,
 ): Promise<void> {
   try {
-    const files = req.files as
-      | Record<string, Express.Multer.File[]>
-      | undefined;
-
-    const fileUrl = (fieldName: string): string | undefined => {
-      const file = files?.[fieldName]?.[0];
-      return file ? `/uploads/${file.filename}` : undefined;
-    };
+    const filesArray = Object.values(
+      (req.files as Record<string, Express.Multer.File[]> | undefined) ?? {},
+    ).flat();
+    const urlMap = await buildUrlMap(filesArray);
+    const fileUrl = (fieldName: string): string | undefined =>
+      urlMap.get(fieldName);
 
     const missionCardsRaw = parseJsonField<{
       headingStatment?: string;
@@ -253,7 +259,11 @@ export async function saveAboutUsContentController(
       OurValue,
     });
 
+    const oldDoc = await getAboutUsService();
+    const oldUrls = collectCloudinaryUrls(oldDoc);
     const content = await saveAboutUsService(data);
+    const newUrls = new Set(collectCloudinaryUrls(content));
+    await deleteCloudinaryImages(oldUrls.filter((u) => !newUrls.has(u)));
     res.status(200).json({ content });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -324,14 +334,13 @@ export async function saveContactUsContentController(
   res: Response,
 ): Promise<void> {
   try {
-    const files = req.files as
-      | Record<string, Express.Multer.File[]>
-      | undefined;
+    const filesArray = Object.values(
+      (req.files as Record<string, Express.Multer.File[]> | undefined) ?? {},
+    ).flat();
+    const urlMap = await buildUrlMap(filesArray);
+    const fileUrl = (fieldName: string): string | undefined =>
+      urlMap.get(fieldName);
 
-    const fileUrl = (fieldName: string): string | undefined => {
-      const file = files?.[fieldName]?.[0];
-      return file ? `/uploads/${file.filename}` : undefined;
-    };
     const getInTouchRaw = parseJsonField<{
       title?: string;
       description?: string;
@@ -352,7 +361,11 @@ export async function saveContactUsContentController(
       getInTouch,
     });
 
+    const oldDoc = await getContactUsService();
+    const oldUrls = collectCloudinaryUrls(oldDoc);
     const content = await saveContactUsService(data);
+    const newUrls = new Set(collectCloudinaryUrls(content));
+    await deleteCloudinaryImages(oldUrls.filter((u) => !newUrls.has(u)));
     res.status(200).json({ content });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -383,14 +396,12 @@ export async function saveFaqContentController(
   res: Response,
 ): Promise<void> {
   try {
-    const files = req.files as
-      | Record<string, Express.Multer.File[]>
-      | undefined;
-
-    const fileUrl = (fieldName: string): string | undefined => {
-      const file = files?.[fieldName]?.[0];
-      return file ? `/uploads/${file.filename}` : undefined;
-    };
+    const filesArray = Object.values(
+      (req.files as Record<string, Express.Multer.File[]> | undefined) ?? {},
+    ).flat();
+    const urlMap = await buildUrlMap(filesArray);
+    const fileUrl = (fieldName: string): string | undefined =>
+      urlMap.get(fieldName);
 
     const generalQuizRaw = parseJsonField<{
       service?: string;
@@ -423,7 +434,11 @@ export async function saveFaqContentController(
     };
 
     const validated = faqSchema.parse(data);
+    const oldDoc = await getFaqService();
+    const oldUrls = collectCloudinaryUrls(oldDoc);
     const content = await saveFaqService(validated);
+    const newUrls = new Set(collectCloudinaryUrls(content));
+    await deleteCloudinaryImages(oldUrls.filter((u) => !newUrls.has(u)));
     res.status(200).json({ content });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -457,14 +472,10 @@ export async function saveServiceContentController(
   res: Response,
 ): Promise<void> {
   try {
-    // upload.any() gives req.files as an array, not a record
-    const filesArray = req.files as Express.Multer.File[] | undefined;
-    const filesMap = new Map(filesArray?.map((f) => [f.fieldname, f]) ?? []);
-
-    const fileUrl = (fieldName: string): string | undefined => {
-      const file = filesMap.get(fieldName);
-      return file ? `/uploads/${file.filename}` : undefined;
-    };
+    const filesArray = (req.files as Express.Multer.File[] | undefined) ?? [];
+    const urlMap = await buildUrlMap(filesArray);
+    const fileUrl = (fieldName: string): string | undefined =>
+      urlMap.get(fieldName);
 
     // Frontend sends all text data as a JSON array under "services"
     const servicesRaw = parseJsonField<{
@@ -482,6 +493,9 @@ export async function saveServiceContentController(
       WhatData?: { heading?: string; descriptionone?: string; descriptiontwo?: string };
       WhoData?: { heading?: string; descriptionone?: string; descriptiontwo?: string };
     }>(req.body.services);
+
+    const oldDocs = await getServiceContent();
+    const oldUrls = collectCloudinaryUrls(oldDocs);
 
     // Save each service individually (upsert by slug)
     const saved = await Promise.all(
@@ -547,6 +561,8 @@ export async function saveServiceContentController(
       }),
     );
 
+    const newUrls = new Set(collectCloudinaryUrls(saved));
+    await deleteCloudinaryImages(oldUrls.filter((u) => !newUrls.has(u)));
     res.status(200).json({ content: saved });
   } catch (error) {
     if (error instanceof z.ZodError) {

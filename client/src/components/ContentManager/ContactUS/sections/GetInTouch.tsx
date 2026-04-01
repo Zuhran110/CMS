@@ -1,7 +1,7 @@
 import { useFieldArray } from "react-hook-form";
 import type { AboutUsSectionProps } from "./ConatctUsProps";
 
-const GetInTouch = ({ register, errors, control }: AboutUsSectionProps) => {
+const GetInTouch = ({ register, errors, control, savedImages }: AboutUsSectionProps) => {
   const { fields, append } = useFieldArray({
     control,
     name: "getInTouch",
@@ -37,6 +37,9 @@ const GetInTouch = ({ register, errors, control }: AboutUsSectionProps) => {
                 className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
                 {...register(`getInTouch.${index}.img`)}
               />
+              {savedImages?.[`getInTouchImg_${index}`] && (
+                <img src={savedImages[`getInTouchImg_${index}`]} alt="Current card image" className="mt-2 h-20 rounded object-cover" />
+              )}
             </div>
 
             <div>
