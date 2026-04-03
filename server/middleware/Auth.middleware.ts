@@ -1,9 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import jwt, {
-	JsonWebTokenError,
-	TokenExpiredError,
-	type JwtPayload,
-} from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
+
+const { JsonWebTokenError, TokenExpiredError } = jwt;
 
 export interface AuthJwtPayload extends JwtPayload {
 	id: string;

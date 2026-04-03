@@ -13,7 +13,7 @@ A full-stack Content Management System built with React on the frontend and Expr
 - React Hook Form
 - Axios
   **Backend (`/server`)**
-- Bun runtime
+- Node.js runtime
 - Express 5
 - MongoDB + Mongoose
 - JWT authentication
@@ -35,7 +35,7 @@ CMS/
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (for the client)
-- [Bun](https://bun.com/) (for the server)
+- [Node.js](https://nodejs.org/) (for the server)
 - [MongoDB](https://www.mongodb.com/) instance
 
 ### Environment Variables
@@ -57,7 +57,7 @@ cd client
 npm install
 # Backend
 cd server
-bun install
+npm install
 ```
 
 ### Run in Development
@@ -68,7 +68,7 @@ cd client
 npm run dev
 # Backend (http://localhost:5000)
 cd server
-bun run dev
+npm run dev
 ```
 
 ## API Endpoints

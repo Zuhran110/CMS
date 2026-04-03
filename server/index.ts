@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express, {
   type NextFunction,
   type Request,
@@ -7,7 +8,6 @@ import cors from "cors";
 import morgan from "morgan";
 import dns from "node:dns";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import mongoose from "mongoose";
 
 import connectDB from "./config/db.config";
@@ -17,7 +17,7 @@ import contentRouter from "./router/Content.router";
 const app = express();
 const isVercel = process.env.VERCEL === "1";
 const PORT = Number(process.env.PORT || 5000);
-const currentDir = path.dirname(fileURLToPath(import.meta.url));
+const uploadsDir = path.join(process.cwd(), "uploads");
 
 let dbConnectionPromise: Promise<void> | null = null;
 
@@ -82,7 +82,7 @@ app.use("/api", async (_req, _res, next) => {
 app.use("/api/auth", authRouter);
 
 if (!isVercel) {
-  app.use("/uploads", express.static(path.join(currentDir, "uploads")));
+  app.use("/uploads", express.static(uploadsDir));
 }
 
 app.use("/api/content", contentRouter);

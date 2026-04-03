@@ -3,6 +3,7 @@
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.9.0",
     "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.3.3",
@@ -11,24 +12,22 @@
     "zod": "^4.3.6"
   },
   "scripts": {
-    "dev": "bun --watch index.ts",
-    "start": "bun index.ts"
+    "dev": "tsx watch index.ts",
+    "start": "tsx index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "name": "server",
-  "module": "index.ts",
   "type": "module",
   "private": true,
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
-    "@types/bun": "latest",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/multer": "^2.1.0",
-    "@types/node": "^25.5.0"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+    "@types/node": "^25.5.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }
