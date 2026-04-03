@@ -50,6 +50,10 @@ app.use("/api/auth", authRouter);
 app.use("/uploads", express.static(path.join(import.meta.dirname, "uploads")));
 app.use("/api/content", contentRouter);
 
+app.use("/", (req, res) => {
+  res.send("CMS Backend is running");
+});
+
 const startServer = async (): Promise<void> => {
   try {
     await connectDB();
