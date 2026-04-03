@@ -1,5 +1,5 @@
-import type { IContactUs } from "../models/ContactUs.model";
-import ContactUs from "../models/ContactUs.model";
+import type { IContactUs } from "../models/ContactUs.model.js";
+import ContactUs from "../models/ContactUs.model.js";
 
 export async function getContactUsService(): Promise<IContactUs | null> {
   return ContactUs.findOne({}).lean();

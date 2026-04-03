@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { AuthService } from "../services/Auth.service";
-import { validUser } from "../models/User.model";
+import { AuthService } from "../services/Auth.service.js";
+import { validUser } from "../models/User.model.js";
 import type { Request, Response } from "express";
 
 async function AuthController(req: Request, res: Response): Promise<void> {

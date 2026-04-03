@@ -1,6 +1,6 @@
 import express from "express";
-import AuthMiddleware from "../middleware/Auth.middleware";
-import { upload } from "../middleware/Upload.middleware";
+import AuthMiddleware from "../middleware/Auth.middleware.js";
+import { upload } from "../middleware/Upload.middleware.js";
 import {
   getHomeContentController,
   saveHomeContentController,
@@ -14,7 +14,7 @@ import {
   saveFaqContentController,
   getServiceContentController,
   saveServiceContentController,
-} from "../controller/Content.controller";
+} from "../controller/Content.controller.js";
 
 const router = express.Router();
 

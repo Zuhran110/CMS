@@ -1,14 +1,14 @@
-import type { IAboutUs } from "../models/AboutUs.model";
-import type { IContactUs } from "../models/ContactUs.model";
-import type { IFaq } from "../models/Faq.model";
-import type { IHomeContent } from "../models/HomeContent.model";
-import type { IService } from "../models/Service.model";
-import { serviceSchemaZod } from "../models/Service.model";
+import type { IAboutUs } from "../models/AboutUs.model.js";
+import type { IContactUs } from "../models/ContactUs.model.js";
+import type { IFaq } from "../models/Faq.model.js";
+import type { IHomeContent } from "../models/HomeContent.model.js";
+import type { IService } from "../models/Service.model.js";
+import { serviceSchemaZod } from "../models/Service.model.js";
 import {
   buildUrlMap,
   collectCloudinaryUrls,
   deleteCloudinaryImages,
-} from "../utils/cloudinary.utils";
+} from "../utils/cloudinary.utils.js";
 
 export function parseJsonField<T>(value: unknown): T[] {
   if (!value) return [];

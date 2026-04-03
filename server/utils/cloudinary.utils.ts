@@ -1,4 +1,4 @@
-import cloudinary from "../config/cloudinary.config";
+import cloudinary from "../config/cloudinary.config.js";
 
 // Extract public_id from a Cloudinary URL so we can delete it
 // Example URL: https://res.cloudinary.com/dpp6bx0lu/image/upload/v1234567890/cms-uploads/abc123.jpg

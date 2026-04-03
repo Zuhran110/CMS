@@ -10,9 +10,9 @@ import dns from "node:dns";
 import path from "node:path";
 import mongoose from "mongoose";
 
-import connectDB from "./config/db.config";
-import authRouter from "./router/Auth.router";
-import contentRouter from "./router/Content.router";
+import connectDB from "./config/db.config.js";
+import authRouter from "./router/Auth.router.js";
+import contentRouter from "./router/Content.router.js";
 
 const app = express();
 const isVercel = process.env.VERCEL === "1";

@@ -1,5 +1,5 @@
-import BuyService from "../models/BuyService.model";
-import type { IBuyService } from "../models/BuyService.model";
+import BuyService from "../models/BuyService.model.js";
+import type { IBuyService } from "../models/BuyService.model.js";
 
 // Fetch buy service content
 export async function getBuyServiceContent(): Promise<IBuyService | null> {

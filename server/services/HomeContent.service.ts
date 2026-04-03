@@ -1,5 +1,5 @@
-import HomeContent from "../models/HomeContent.model";
-import type { IHomeContent } from "../models/HomeContent.model";
+import HomeContent from "../models/HomeContent.model.js";
+import type { IHomeContent } from "../models/HomeContent.model.js";
 // Fetch the homepage content from MongoDB
 export async function getHomeContent(): Promise<IHomeContent | null> {
   const doc = await HomeContent.findOne({}).lean();

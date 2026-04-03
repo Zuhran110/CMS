@@ -1,5 +1,5 @@
-import type { IAboutUs } from "../models/AboutUs.model";
-import AboutUs from "../models/AboutUs.model";
+import type { IAboutUs } from "../models/AboutUs.model.js";
+import AboutUs from "../models/AboutUs.model.js";
 
 export async function getAboutUsService(): Promise<IAboutUs | null> {
   return AboutUs.findOne({}).lean();

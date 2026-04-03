@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../models/User.model";
-import type { ISafeUser } from "../models/User.model";
+import User from "../models/User.model.js";
+import type { ISafeUser } from "../models/User.model.js";
 
 async function AuthService(
   email: string,

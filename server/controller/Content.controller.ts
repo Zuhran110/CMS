@@ -2,29 +2,29 @@ import type { Request, Response } from "express";
 import {
   getBuyServiceContent,
   saveBuyServiceContent,
-} from "../services/BuyContent.service";
+} from "../services/BuyContent.service.js";
 import {
   getHomeContent,
   saveHomeContent,
-} from "../services/HomeContent.service";
+} from "../services/HomeContent.service.js";
 import {
   getAboutUsService,
   saveAboutUsService,
-} from "../services/AboutUs.service";
+} from "../services/AboutUs.service.js";
 import {
   getContactUsService,
   saveContactUsService,
-} from "../services/ContactUs.service";
+} from "../services/ContactUs.service.js";
 import {
   getServiceContent,
   saveServiceContent,
-} from "../services/Service.service";
+} from "../services/Service.service.js";
 
-import { getFaqService, saveFaqService } from "../services/Faq.service";
-import { BuyServiceSchemaZod } from "../models/BuyService.model";
-import { AboutUsSchemaZod } from "../models/AboutUs.model";
-import { contactUsSchema } from "../models/ContactUs.model";
-import { faqSchema } from "../models/Faq.model";
+import { getFaqService, saveFaqService } from "../services/Faq.service.js";
+import { BuyServiceSchemaZod } from "../models/BuyService.model.js";
+import { AboutUsSchemaZod } from "../models/AboutUs.model.js";
+import { contactUsSchema } from "../models/ContactUs.model.js";
+import { faqSchema } from "../models/Faq.model.js";
 import { z } from "zod";
 import {
   buildAboutUsContentData,
@@ -35,7 +35,7 @@ import {
   cleanupRemovedCloudinaryUrls,
   createFileUrlResolver,
   parseServiceRows,
-} from "./content.controller.helpers";
+} from "./content.controller.helpers.js";
 
 // GET /api/content/home — returns saved home content (empty object if nothing saved yet)
 export async function getHomeContentController(

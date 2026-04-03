@@ -1,5 +1,5 @@
-import Service from "../models/Service.model";
-import type { IService } from "../models/Service.model";
+import Service from "../models/Service.model.js";
+import type { IService } from "../models/Service.model.js";
 
 // Fetch all services from MongoDB
 export async function getServiceContent(): Promise<IService[]> {

@@ -1,5 +1,5 @@
-import type { IFaq } from "../models/Faq.model";
-import Faq from "../models/Faq.model";
+import type { IFaq } from "../models/Faq.model.js";
+import Faq from "../models/Faq.model.js";
 
 export async function getFaqService(): Promise<IFaq | null> {
   return Faq.findOne({}).lean();
