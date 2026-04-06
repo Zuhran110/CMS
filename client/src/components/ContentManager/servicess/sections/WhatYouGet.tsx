@@ -23,7 +23,7 @@ const WhatYouGet = ({ index, register, control }: ServiceSectionProps) => {
   });
 
   return (
-    <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+    <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
       <h3 className="text-sm font-semibold text-slate-900">What You Get</h3>
 
       <div>
@@ -121,3 +121,4 @@ const WhatYouGet = ({ index, register, control }: ServiceSectionProps) => {
 };
 
 export default WhatYouGet;
+

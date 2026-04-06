@@ -2,8 +2,12 @@ import type { HomeSectionProps } from "./section-props.types";
 
 const JoinUsSection = ({ register, errors, savedImages }: HomeSectionProps) => {
   return (
-    <section className="space-y-4 rounded-lg border border-slate-200 p-4">
-      <h2 className="text-base font-semibold text-slate-900">joinUs</h2>
+    <section className="cms-section-card overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="cms-section-header flex items-center gap-3 border-b border-slate-100 bg-slate-50/80 px-5 py-3.5">
+        <span className="cms-section-accent h-4 w-1 rounded-full bg-indigo-500"></span>
+        <h2 className="cms-section-title text-sm font-semibold uppercase tracking-wide text-slate-700">Join Us</h2>
+      </div>
+      <div className="cms-section-body space-y-4 p-5">
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
@@ -11,7 +15,7 @@ const JoinUsSection = ({ register, errors, savedImages }: HomeSectionProps) => {
             htmlFor="joinUs-heading"
             className="mb-1 block text-sm font-medium text-slate-700"
           >
-            heading
+            Heading
           </label>
           <input
             id="joinUs-heading"
@@ -31,7 +35,7 @@ const JoinUsSection = ({ register, errors, savedImages }: HomeSectionProps) => {
             htmlFor="joinUs-bgimg"
             className="mb-1 block text-sm font-medium text-slate-700"
           >
-            bgimg
+            Background image
           </label>
           <input
             id="joinUs-bgimg"
@@ -50,8 +54,11 @@ const JoinUsSection = ({ register, errors, savedImages }: HomeSectionProps) => {
           )}
         </div>
       </div>
+    </div>
     </section>
   );
 };
 
 export default JoinUsSection;
+
+

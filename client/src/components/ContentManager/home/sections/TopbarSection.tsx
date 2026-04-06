@@ -2,8 +2,12 @@ import type { HomeSectionProps } from "./section-props.types";
 
 const TopbarSection = ({ register, errors }: HomeSectionProps) => {
   return (
-    <section className="space-y-4 rounded-lg border border-slate-200 p-4">
-      <h2 className="text-base font-semibold text-slate-900">Topbar</h2>
+    <section className="cms-section-card overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="cms-section-header flex items-center gap-3 border-b border-slate-100 bg-slate-50/80 px-5 py-3.5">
+        <span className="cms-section-accent h-4 w-1 rounded-full bg-indigo-500"></span>
+        <h2 className="cms-section-title text-sm font-semibold uppercase tracking-wide text-slate-700">Topbar</h2>
+      </div>
+      <div className="cms-section-body space-y-4 p-5">
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
@@ -68,8 +72,11 @@ const TopbarSection = ({ register, errors }: HomeSectionProps) => {
           </p>
         )}
       </div>
+    </div>
     </section>
   );
 };
 
 export default TopbarSection;
+
+

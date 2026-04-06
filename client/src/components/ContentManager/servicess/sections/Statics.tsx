@@ -15,7 +15,7 @@ const Statics = ({ index, register, control }: ServiceSectionProps) => {
   const cardValues = useWatch({ control, name: `services.${index}.statics.card` });
 
   return (
-    <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+    <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
       <h3 className="text-sm font-semibold text-slate-900">Statics</h3>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -108,3 +108,4 @@ const Statics = ({ index, register, control }: ServiceSectionProps) => {
 };
 
 export default Statics;
+

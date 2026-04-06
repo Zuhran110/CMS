@@ -95,28 +95,79 @@ const Home = () => {
   };
 
   return (
-    <div className="mx-auto w-full max-w-5xl rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-      <label className="mb-4 block text-xl font-semibold text-slate-900">
-        Landing page
-      </label>
+    <div className="cms-form-shell mx-auto w-full max-w-5xl">
+      {/* Page header */}
+      <div className="cms-page-header">
+        <h1 className="cms-page-title">Landing Page</h1>
+        <p className="cms-page-subtitle">
+          Edit the content displayed on your public landing page.
+        </p>
+      </div>
 
       <form
-        className="space-y-6"
+        className="space-y-5"
         action="post"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex items-center gap-4">
-          <button
-            type="submit"
-            disabled={saving}
-            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-60"
-          >
-            {saving ? "Saving..." : "Save"}
+        {/* Sticky save bar */}
+        <div className="cms-save-bar">
+          <button type="submit" disabled={saving} className="cms-btn-primary">
+            {saving && (
+              <svg
+                className="h-3.5 w-3.5 animate-spin"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8z"
+                />
+              </svg>
+            )}
+            {saving ? "Saving…" : "Save changes"}
           </button>
           {saveMessage && (
             <span
-              className={`text-sm font-medium ${saveMessage === "Saved successfully!" ? "text-green-600" : "text-red-600"}`}
+              className={`cms-status ${
+                saveMessage === "Saved successfully!"
+                  ? "cms-status-success"
+                  : "cms-status-error"
+              }`}
             >
+              {saveMessage === "Saved successfully!" ? (
+                <svg
+                  className="h-4 w-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="h-4 w-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
               {saveMessage}
             </span>
           )}

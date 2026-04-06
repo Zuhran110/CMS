@@ -3,9 +3,9 @@ import ContactUS from "../components/ContentManager/ContactUS/ContactUS";
 
 const ContactUs = () => {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <Navbar title="Buy Service" />
-      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="cms-admin-page">
+      <Navbar title="Contact Us" />
+      <main className="cms-admin-main">
         <ContactUS />
       </main>
     </div>

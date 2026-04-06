@@ -8,7 +8,7 @@ const OurValue = ({ register, errors, control, savedImages }: AboutUsSectionProp
   });
 
   return (
-    <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+    <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
       <h2 className="text-base font-semibold text-slate-900">
         Our Value ({fields.length})
       </h2>
@@ -100,3 +100,4 @@ const OurValue = ({ register, errors, control, savedImages }: AboutUsSectionProp
 };
 
 export default OurValue;
+

@@ -2,9 +2,9 @@ import Navbar from "../components/layout/navbar.component";
 import Home from "../components/ContentManager/home/Home";
 const DashboardPage = () => {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="cms-admin-page">
       <Navbar title="Dashboard" />
-      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="cms-admin-main">
         <Home />
       </main>
     </div>

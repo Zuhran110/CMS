@@ -8,7 +8,7 @@ const GeneralQuiz = ({ register, errors, control }: FaqSectionProps) => {
   });
 
   return (
-    <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+    <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
       <h2 className="text-base font-semibold text-slate-900">
         General Quiz ({fields.length})
       </h2>
@@ -82,3 +82,4 @@ const GeneralQuiz = ({ register, errors, control }: FaqSectionProps) => {
 };
 
 export default GeneralQuiz;
+

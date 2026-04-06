@@ -33,7 +33,7 @@ const ServiceItem = ({
   return (
     <div className="space-y-4">
       {/* Hero */}
-      <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+      <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
         <h3 className="text-sm font-semibold text-slate-900">Hero</h3>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
@@ -147,7 +147,7 @@ const ServiceItem = ({
       />
 
       {/* Get Started */}
-      <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+      <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
         <h3 className="text-sm font-semibold text-slate-900">Get Started</h3>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="md:col-span-2">
@@ -197,7 +197,7 @@ const ServiceItem = ({
       />
 
       {/* What Data */}
-      <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+      <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
         <h3 className="text-sm font-semibold text-slate-900">What Data</h3>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
@@ -246,7 +246,7 @@ const ServiceItem = ({
       </section>
 
       {/* Who Data */}
-      <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+      <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
         <h3 className="text-sm font-semibold text-slate-900">Who Data</h3>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
@@ -298,3 +298,4 @@ const ServiceItem = ({
 };
 
 export default ServiceItem;
+

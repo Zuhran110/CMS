@@ -1,43 +1,129 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type NavbarProps = {
   title: string;
 };
 
+const navLinks = [
+  { to: "/dashboard", label: "Landing page" },
+  { to: "/buy-service", label: "Buy Service" },
+  { to: "/about-us", label: "About Us" },
+  { to: "/contact-us", label: "Contact Us" },
+  { to: "/faq", label: "FAQ" },
+  { to: "/services", label: "Services" },
+];
+
 export const Navbar = ({ title = "Dashboard" }: NavbarProps) => {
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   const getNavClass = ({ isActive }: { isActive: boolean }) =>
-    `rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-      isActive
-        ? "bg-slate-900 text-white"
-        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-    }`;
+    isActive ? "cms-nav-link cms-nav-link-active" : "cms-nav-link";
 
   return (
-    <nav className="border-b border-slate-200 bg-white px-4 py-4">
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
-        <h1 className="text-lg font-semibold">{title}</h1>
+    <nav className="cms-navbar">
+      <div className="cms-navbar-inner">
+        {/* Brand */}
+        <div className="cms-navbar-brand">
+          <div className="cms-navbar-brand-icon">
+            <svg
+              className="h-4 w-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </div>
+          <span className="cms-navbar-title">{title}</span>
+        </div>
 
+        {/* Desktop nav links */}
+        <div className="cms-navbar-links">
+          {navLinks.map((link) => (
+            <NavLink key={link.to} to={link.to} className={getNavClass}>
+              {link.label}
+            </NavLink>
+          ))}
+        </div>
+
+        {/* Logout + mobile toggle */}
         <div className="flex items-center gap-2">
-          <NavLink to="/dashboard" className={getNavClass}>
-            Landing page
-          </NavLink>
-          <NavLink to="/buy-service" className={getNavClass}>
-            Buy Service
-          </NavLink>
-          <NavLink to="/about-us" className={getNavClass}>
-            About Us
-          </NavLink>
-          <NavLink to="/contact-us" className={getNavClass}>
-            Contact Us
-          </NavLink>
-          <NavLink to="/faq" className={getNavClass}>
-            Faq
-          </NavLink>
-          <NavLink to="/services" className={getNavClass}>
-            Services
-          </NavLink>
+          <button onClick={handleLogout} className="cms-logout-btn">
+            Logout
+          </button>
+
+          {/* Mobile hamburger */}
+          <button
+            className="cms-mobile-toggle"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? (
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <div className="cms-mobile-menu md:hidden">
+          <div className="cms-mobile-menu-inner">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={getNavClass}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+            <button onClick={handleLogout} className="cms-mobile-logout">
+              Logout
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

@@ -2,7 +2,7 @@ import type { FaqSectionProps } from "./FaqProps";
 
 const BookACall = ({ register, savedImages }: FaqSectionProps) => {
   return (
-    <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+    <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
       <h2 className="text-base font-semibold text-slate-900">Book a Call</h2>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -60,3 +60,4 @@ const BookACall = ({ register, savedImages }: FaqSectionProps) => {
 };
 
 export default BookACall;
+

@@ -8,7 +8,7 @@ const OurStory = ({ register, errors, control, savedImages }: AboutUsSectionProp
   });
 
   return (
-    <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+    <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
       <h2 className="text-base font-semibold text-slate-900">Our Story</h2>
       <div className="grid gap-4 md:grid-cols-2">
         <div>
@@ -73,7 +73,7 @@ const OurStory = ({ register, errors, control, savedImages }: AboutUsSectionProp
         </div>
       </div>
 
-      <section className="space-y-4 rounded-lg border border-slate-200 p-4">
+      <section className="cms-subsection-card space-y-4 rounded-lg border border-slate-200 p-4">
         <h2 className="text-base font-semibold text-slate-900">
           missionStatmentCards ({fields.length})
         </h2>
@@ -160,3 +160,4 @@ const OurStory = ({ register, errors, control, savedImages }: AboutUsSectionProp
 };
 
 export default OurStory;
+

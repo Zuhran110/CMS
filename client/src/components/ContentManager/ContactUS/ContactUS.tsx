@@ -83,30 +83,26 @@ const ContactUS = () => {
 
   if (loading) {
     return (
-      <div className="mx-auto w-full max-w-5xl rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="cms-form-shell mx-auto w-full max-w-5xl">
         <p className="text-sm text-slate-500">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-5xl rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="cms-form-shell mx-auto w-full max-w-5xl">
       <form
         className="space-y-6"
         action="post"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex items-center gap-4">
-          <button
-            type="submit"
-            disabled={saving}
-            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-60"
-          >
+          <button type="submit" disabled={saving} className="cms-btn-primary">
             {saving ? "Saving..." : "Save"}
           </button>
           {saveMessage && (
             <span
-              className={`text-sm font-medium ${saveMessage === "Saved successfully!" ? "text-green-600" : "text-red-600"}`}
+              className={`cms-status ${saveMessage === "Saved successfully!" ? "cms-status-success" : "cms-status-error"}`}
             >
               {saveMessage}
             </span>
